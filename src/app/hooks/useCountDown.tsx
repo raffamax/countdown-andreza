@@ -9,6 +9,7 @@ const useCountdown = (initialDate: string, birthYear: number) => {
   const [second, setSecond] = useState<number | null>(null);
   const [targetDate, setTargetDate] = useState<Date>(new Date(initialDate));
   const [age, setAge] = useState<number>(new Date().getFullYear() - birthYear);
+  const [showCountdown, setShowCountdown] = useState<boolean>(false);
 
   const countDown = () => {
     const now = new Date().getTime();
@@ -16,10 +17,11 @@ const useCountdown = (initialDate: string, birthYear: number) => {
 
     if (now > countDate) {
       const newTargetDate = new Date(
-        targetDate.setFullYear(targetDate.getFullYear() + 1)
+        targetDate.setFullYear(targetDate.getFullYear() + 1),
       );
       setTargetDate(newTargetDate);
       setAge((prevAge) => prevAge + 1);
+      setShowCountdown(true);
     }
 
     const interval = targetDate.getTime() - now;
@@ -42,10 +44,11 @@ const useCountdown = (initialDate: string, birthYear: number) => {
 
   useEffect(() => {
     const interval = setInterval(countDown, 1000);
+    setShowCountdown(true);
     return () => clearInterval(interval);
   }, [targetDate]);
 
-  return [day, hour, minute, second, age];
+  return [day, hour, minute, second, age, showCountdown];
 };
 
 export default useCountdown;

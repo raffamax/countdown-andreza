@@ -1,10 +1,20 @@
 import React from "react";
 
-export default function Counter(props: { title: any; number: any }) {
+interface CounterProps {
+  title: string;
+  number: number;
+  showCountdown: boolean;
+}
+
+export default function Counter({
+  title,
+  number,
+  showCountdown,
+}: CounterProps) {
   return (
     <div className="counter">
-      <p className="counter-number">{props.number}</p>
-      <h3 className="counter-text">{props.title}</h3>
+      <p className="counter-number">{showCountdown ? number : ""}</p>
+      <h3 className="counter-text">{title}</h3>
     </div>
   );
 }
