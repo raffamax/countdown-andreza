@@ -1,4 +1,5 @@
 import React from "react";
+import "../globals.css";
 
 interface CounterProps {
   title: string;
@@ -13,7 +14,13 @@ export default function Counter({
 }: CounterProps) {
   return (
     <div className="counter">
-      <p className="counter-number">{showCountdown ? number : ""}</p>
+      {showCountdown ? (
+        <p className="counter-number">{number}</p>
+      ) : (
+        <div className="spinner-container counter-number">
+          <div className="spinner" role="status" aria-label="Carregando" />
+        </div>
+      )}
       <h3 className="counter-text">{title}</h3>
     </div>
   );
